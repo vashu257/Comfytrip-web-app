@@ -1,0 +1,248 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* BACKGROUND IMAGE */
+.your-container {
+  background-image: url('./images/webdev_img1.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* DARK OVERLAY */
+.your-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* CENTERED CONTENT */
+.your-content {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 50px;
+  padding-bottom: 50px;
+  color: white;
+}
+
+/* TITLE */
+.title {
+  font-size: 42px;
+  margin-bottom: 20px;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+/* BUTTON */
+button {
+  padding: 10px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 6px;
+  background: #3498db;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+/* ========================= */
+/* REQUEST GRID LAYOUT */
+/* ========================= */
+
+/* Grid container */
+#requestsList {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 side-by-side cards */
+  gap: 15px;
+}
+
+/* ========================= */
+/* SCROLLABLE REQUEST BOX */
+/* ========================= */
+.requests-box {
+  max-height: 350px;
+  overflow-y: auto;
+  padding: 10px;
+  backdrop-filter: blur(10px);
+
+  width: 100%;
+  max-width: 650px; /* increased width */
+  margin: auto;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Scrollbar styling */
+.requests-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.requests-box::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.5);
+  border-radius: 10px;
+}
+
+/* ========================= */
+/* REQUEST CARD STYLE */
+/* ========================= */
+#requestsList .card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: left;
+  color: white;
+  margin: 0; /* remove vertical stacking spacing */
+}
+
+/* ========================= */
+/* MOBILE RESPONSIVE */
+/* ========================= */
+@media (max-width: 600px) {
+  #requestsList {
+    grid-template-columns: 1fr; /* single column on small screens */
+  }
+}
+#chatBox {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 650px;
+}
+/* ========================= */
+/* CHAT UI */
+/* ========================= */
+
+.chat-box {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 650px;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+}
+
+.chat-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Chat messages area */
+.chat-messages {
+  scroll-behavior: smooth;
+  height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+/* Message bubble */
+.message {
+  max-width: 70%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+/* Sender (you) */
+.message.you {
+  align-self: flex-end;
+  background: #3498db;
+  color: white;
+}
+
+/* Receiver */
+.message.other {
+  align-self: flex-start;
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+/* Input area */
+.chat-input-area {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.chat-input-area input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+}
+
+.chat-input-area button {
+  padding: 8px 15px;
+}
+.chat-input-area input:focus {
+  outline: none;
+  box-shadow: 0 0 5px #3498db;
+}
+
+#chatMessages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* common bubble */
+#chatMessages div {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* YOUR messages (RIGHT) */
+.my-message {
+  background: #4da6ff;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px;
+  max-width: 70%;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* OTHER messages (LEFT) */
+.other-message {
+  background: #e0e0e0;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px;
+  max-width: 70%;
+  margin-right: auto;
+  text-align: left;
+}
+
+/* time */
+#chatMessages small {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-top: 4px;
+}

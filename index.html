@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ComfyTrip — Seat Exchange</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════
+     NAVBAR
+══════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" onclick="showPage('home')">
+        <div class="logo-icon">🚆</div>
+        <span class="logo-text">Comfy<strong>Trip</strong></span>
+      </a>
+
+      <div class="nav-links">
+        <a class="nav-link active" data-page="home" onclick="showPage('home')">Home</a>
+        <a class="nav-link" data-page="browse" onclick="showPage('browse')">Browse</a>
+        <a class="nav-link" data-page="post" onclick="showPage('post')">Post</a>
+        <a class="nav-link" data-page="chats" onclick="showPage('chats')">Chats</a>
+      </div>
+
+      <div class="nav-actions">
+        <span id="welcome" class="nav-welcome"></span>
+        <button id="loginBtn" class="btn btn-primary">Login with Google</button>
+        <button id="logoutBtn" class="btn btn-ghost" style="display:none;">Logout</button>
+      </div>
+
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a onclick="showPage('home');  toggleMobileMenu()">Home</a>
+      <a onclick="showPage('browse');toggleMobileMenu()">Browse</a>
+      <a onclick="showPage('post');  toggleMobileMenu()">Post</a>
+      <a onclick="showPage('chats'); toggleMobileMenu()">Chats</a>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════
+     PAGE: HOME
+══════════════════════════════ -->
+  <div id="page-home" class="page active">
+
+    <section class="hero">
+      <div class="hero-bg">
+        <img src="./images/webdev_img2.jpg" alt="" class="hero-img" />
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge">Berth Exchange Platform</div>
+        <h1 class="hero-title">Travel the way<br /><em>you want to.</em></h1>
+        <p class="hero-sub">Match with fellow passengers and swap berths in real time — no middlemen, no hassle.</p>
+        <div class="hero-search-box">
+          <svg class="hs-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input id="searchTrain" class="hs-input" placeholder="Enter train number to find passengers..." />
+          <button onclick="searchTrain(); showPage('browse')" class="btn btn-primary hs-btn">Search</button>
+        </div>
+        <div class="hero-cta-row">
+          <button class="btn btn-white-outline" onclick="showPage('browse')">Browse Requests</button>
+          <button class="btn btn-primary" onclick="showPage('post')">Post a Request</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-bar">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat"><span class="stat-n" id="statTotal">7</span><span class="stat-l">Total Requests</span></div>
+          <div class="stat-sep"></div>
+          <div class="stat"><span class="stat-n" id="statActive">4</span><span class="stat-l">Active Now</span></div>
+          <div class="stat-sep"></div>
+          <div class="stat"><span class="stat-n" id="statMatched">3</span><span class="stat-l">Matched Today</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat"><span class="stat-n" id="statChats">2</span><span class="stat-l">Active Chats</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hiw-section">
+      <div class="container">
+        <h2 class="hiw-title">How It Works</h2>
+        <p class="hiw-sub">Three simple steps to your ideal seat</p>
+        <div class="hiw-grid">
+          <div class="hiw-card">
+            <div class="hiw-num blue">01</div>
+            <h3 class="hiw-card-title">Post Your Request</h3>
+            <p class="hiw-card-desc">Share your current seat and what you're looking for — takes under a minute.</p>
+          </div>
+          <div class="hiw-card">
+            <div class="hiw-num orange">02</div>
+            <h3 class="hiw-card-title">Find a Match</h3>
+            <p class="hiw-card-desc">Browse other passengers on the same train. When interests align, connect instantly.
+            </p>
+          </div>
+          <div class="hiw-card">
+            <div class="hiw-num green">03</div>
+            <h3 class="hiw-card-title">Chat &amp; Confirm</h3>
+            <p class="hiw-card-desc">Chat with your match in real time, confirm the swap, and settle in comfortably.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span class="footer-brand">ComfyTrip</span>
+        <span class="footer-copy">&copy; 2025 — Making every journey comfortable</span>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- ══════════════════════════════
+     PAGE: BROWSE
+══════════════════════════════ -->
+  <div id="page-browse" class="page">
+
+    <div class="inner-header">
+      <div class="container">
+        <h1 class="inner-title">Browse Requests</h1>
+        <p class="inner-sub">Find passengers looking to swap seats on your train</p>
+        <div class="browse-search-row">
+          <div class="bsr-wrap">
+            <svg class="bsr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+            <input id="searchTrainBrowse" class="bsr-input" placeholder="Search by train number..."
+              oninput="syncSearch(this.value)" />
+          </div>
+          <button onclick="doSearch()" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+            </svg>
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container browse-body">
+      <div class="filter-pills" id="berthFilters">
+        <button class="pill active" onclick="filterBerth(this,'')">All Berths</button>
+        <button class="pill" onclick="filterBerth(this,'lower berth')">Lower Berth</button>
+        <button class="pill" onclick="filterBerth(this,'middle berth')">Middle Berth</button>
+        <button class="pill" onclick="filterBerth(this,'upper berth')">Upper Berth</button>
+        <button class="pill" onclick="filterBerth(this,'side lower')">Side Lower</button>
+        <button class="pill" onclick="filterBerth(this,'side upper')">Side Upper</button>
+      </div>
+
+      <p class="results-count" id="resultsCount"></p>
+      <div id="requestsList" class="requests-list"></div>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════
+     PAGE: POST
+══════════════════════════════ -->
+  <div id="page-post" class="page">
+
+    <div class="inner-header">
+      <div class="container">
+        <h1 class="inner-title">Post a Request</h1>
+        <p class="inner-sub">Find passengers who want to swap seats with you</p>
+      </div>
+    </div>
+
+    <div class="container post-body">
+
+      <div id="postLoginGate" class="login-gate">
+        <div class="gate-icon">🔐</div>
+        <h3>Sign in to post a request</h3>
+        <p>You need to be logged in to post a seat exchange request.</p>
+        <button onclick="document.getElementById('loginBtn').click()" class="btn btn-primary">Login with Google</button>
+      </div>
+
+      <div class="stepper" id="stepperBar" style="display:none;">
+        <div class="sdot active" data-step="1">
+          <div class="sdot-circle">1</div><span>Train Details</span>
+        </div>
+        <div class="sline"></div>
+        <div class="sdot" data-step="2">
+          <div class="sdot-circle">2</div><span>Your Seat</span>
+        </div>
+        <div class="sline"></div>
+        <div class="sdot" data-step="3">
+          <div class="sdot-circle">3</div><span>Preference</span>
+        </div>
+      </div>
+
+      <form id="requestForm" class="post-form" style="display:none;">
+
+        <div class="fstep" id="step1">
+          <div class="fstep-hd">
+            <h3>Train Details</h3>
+            <p>Tell us about your journey</p>
+          </div>
+          <div class="fgrid">
+            <div class="field full"><label class="label">Train Number <span class="req">*</span></label><input
+                id="trainNo" class="input" placeholder="e.g. 12952" required /></div>
+            <div class="field full"><label class="label">PNR Number <span class="req">*</span></label><input id="pnr"
+                class="input" placeholder="10-digit PNR" pattern="\d{10}" maxlength="10" required /></div>
+            <div class="field"><label class="label">From Station <span class="req">*</span></label><input id="from"
+                class="input" placeholder="e.g. Mumbai" required /></div>
+            <div class="field"><label class="label">To Station <span class="req">*</span></label><input id="to"
+                class="input" placeholder="e.g. Delhi" required /></div>
+          </div>
+          <div class="fstep-actions"><button type="button" class="btn btn-primary" onclick="goStep(2)">Continue
+              →</button></div>
+        </div>
+
+        <div class="fstep hidden" id="step2">
+          <div class="fstep-hd">
+            <h3>Your Seat</h3>
+            <p>Tell us about your current seat</p>
+          </div>
+          <div class="fgrid">
+            <div class="field full"><label class="label">Seat Number <span class="req">*</span></label><input id="seat"
+                class="input" placeholder="e.g. A1-42" required /></div>
+            <div class="field full">
+              <label class="label">Current Berth Type <span class="req">*</span></label>
+              <div class="berth-opts">
+                <label class="bopt"><input type="radio" name="bt" value="Upper Berth" onchange="setBerth(this.value)" />
+                  Upper Berth</label>
+                <label class="bopt"><input type="radio" name="bt" value="Middle Berth"
+                    onchange="setBerth(this.value)" /> Middle Berth</label>
+                <label class="bopt"><input type="radio" name="bt" value="Lower Berth" onchange="setBerth(this.value)" />
+                  Lower Berth</label>
+                <label class="bopt"><input type="radio" name="bt" value="Side Upper" onchange="setBerth(this.value)" />
+                  Side Upper</label>
+                <label class="bopt"><input type="radio" name="bt" value="Side Lower" onchange="setBerth(this.value)" />
+                  Side Lower</label>
+              </div>
+              <input id="berth" type="hidden" required />
+            </div>
+            <div class="field full">
+              <label class="label">Ticket Photo <span class="opt-tag">optional</span></label>
+              <label class="file-label">
+                <input type="file" id="photo" accept="image/*" class="file-hidden" />
+                <span class="file-btn">📎 Choose file</span>
+                <span id="fileNameDisplay" class="file-name">No file chosen</span>
+              </label>
+            </div>
+          </div>
+          <div class="fstep-actions spaced">
+            <button type="button" class="btn btn-ghost" onclick="goStep(1)">← Back</button>
+            <button type="button" class="btn btn-primary" onclick="goStep(3)">Continue →</button>
+          </div>
+        </div>
+
+        <div class="fstep hidden" id="step3">
+          <div class="fstep-hd">
+            <h3>Preference</h3>
+            <p>What berth are you looking for?</p>
+          </div>
+          <div class="fgrid">
+            <div class="field full">
+              <label class="label">Preferred Berth <span class="req">*</span></label>
+              <div class="berth-opts">
+                <label class="bopt"><input type="radio" name="pt" value="Upper Berth" onchange="setPref(this.value)" />
+                  Upper Berth</label>
+                <label class="bopt"><input type="radio" name="pt" value="Middle Berth" onchange="setPref(this.value)" />
+                  Middle Berth</label>
+                <label class="bopt"><input type="radio" name="pt" value="Lower Berth" onchange="setPref(this.value)" />
+                  Lower Berth</label>
+                <label class="bopt"><input type="radio" name="pt" value="Side Upper" onchange="setPref(this.value)" />
+                  Side Upper</label>
+                <label class="bopt"><input type="radio" name="pt" value="Side Lower" onchange="setPref(this.value)" />
+                  Side Lower</label>
+                <label class="bopt"><input type="radio" name="pt" value="Any" onchange="setPref(this.value)" />
+                  Any</label>
+              </div>
+              <input id="preferred" type="hidden" required />
+            </div>
+          </div>
+          <div class="fstep-actions spaced">
+            <button type="button" class="btn btn-ghost" onclick="goStep(2)">← Back</button>
+            <button type="submit" class="btn btn-primary">Post Request ✓</button>
+          </div>
+        </div>
+
+      </form>
+      <p id="status" class="status-msg"></p>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════
+     PAGE: CHATS
+══════════════════════════════ -->
+  <div id="page-chats" class="page">
+
+    <div class="inner-header">
+      <div class="container">
+        <h1 class="inner-title">Chats</h1>
+        <p class="inner-sub">Your active seat exchange conversations</p>
+      </div>
+    </div>
+
+    <div class="container chats-body">
+
+      <div id="chatListBox" style="display:none;">
+        <div id="chatList" class="chat-list"></div>
+      </div>
+
+      <div id="chatBox" class="chat-view" style="display:none;">
+        <div class="chat-view-top">
+          <button onclick="closeChat()" class="back-btn">← Back</button>
+          <h3 id="chatTitle" class="chat-view-name">Chat</h3>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-input-row">
+          <input id="messageInput" class="input" placeholder="Type a message..." />
+          <button onclick="sendMessage()" class="btn btn-primary">Send</button>
+        </div>
+      </div>
+      <!-- Adding feedback system -->
+      <div id="feedbackBox" class="chat-view" style="display:none; margin-top:20px;">
+        <div class="chat-view-top">
+          <h3>Give Feedback</h3>
+        </div>
+
+        <div style="padding:20px;">
+          <label>Rating:</label>
+          <select id="rating" class="input">
+            <option value="5">⭐ 5</option>
+            <option value="4">⭐ 4</option>
+            <option value="3">⭐ 3</option>
+            <option value="2">⭐ 2</option>
+            <option value="1">⭐ 1</option>
+          </select>
+
+          <br><br>
+
+          <label>Comment:</label>
+          <textarea id="comment" class="input" placeholder="Write your experience..."></textarea>
+
+          <br><br>
+
+          <button onclick="submitFeedback()" class="btn btn-primary">Submit Feedback</button>
+        </div>
+      </div>
+
+
+
+      <div class="empty-state" id="emptyChats">
+        <div class="empty-emoji">💬</div>
+        <h3 class="empty-h">No conversations yet</h3>
+        <p class="empty-p">When you match with a passenger, your chats will appear here.</p>
+        <button class="btn btn-primary" onclick="showPage('browse')">Browse Requests</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="app.js"></script>
+
+  <script>
+    // ─── PAGE ROUTING ────────────────────────────────────────
+    let currentPage = 'home';
+
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      const pg = document.getElementById('page-' + id);
+      if (pg) pg.classList.add('active');
+      const lnk = document.querySelector(`.nav-link[data-page="${id}"]`);
+      if (lnk) lnk.classList.add('active');
+      currentPage = id;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (id === 'post') updatePostGate();
+      if (id === 'chats') updateChatsEmpty();
+    }
+
+    function updatePostGate() {
+      const form = document.getElementById('requestForm');
+      const gate = document.getElementById('postLoginGate');
+      const stepper = document.getElementById('stepperBar');
+      const shown = form && form.style.display !== 'none';
+      if (gate) gate.style.display = shown ? 'none' : 'flex';
+      if (stepper) stepper.style.display = shown ? 'flex' : 'none';
+    }
+
+    function updateChatsEmpty() {
+      const lb = document.getElementById('chatListBox');
+      const cb = document.getElementById('chatBox');
+      const empty = document.getElementById('emptyChats');
+      if (!empty) return;
+      const has = (lb && lb.style.display !== 'none') || (cb && cb.style.display !== 'none');
+      empty.style.display = has ? 'none' : 'flex';
+    }
+
+    // Watch auth.js toggling requestForm
+    new MutationObserver(() => { if (currentPage === 'post') updatePostGate(); })
+      .observe(document.getElementById('requestForm'), { attributes: true, attributeFilter: ['style'] });
+
+    new MutationObserver(() => { if (currentPage === 'chats') updateChatsEmpty(); })
+      .observe(document.getElementById('chatListBox'), { attributes: true, attributeFilter: ['style'] });
+
+
+    // ─── STEPPER ─────────────────────────────────────────────
+    let currentStep = 1;
+
+    function goStep(n) {
+      if (n > currentStep) {
+        if (currentStep === 1 && (!document.getElementById('trainNo').value || !document.getElementById('pnr').value || !document.getElementById('from').value || !document.getElementById('to').value)) {
+          alert('Please fill all train details.'); return;
+        }
+        if (currentStep === 2 && !document.getElementById('berth').value) {
+          alert('Please select your current berth type.'); return;
+        }
+      }
+      document.querySelectorAll('.fstep').forEach(s => s.classList.add('hidden'));
+      document.getElementById('step' + n).classList.remove('hidden');
+      document.querySelectorAll('.sdot').forEach(d => {
+        const s = +d.dataset.step;
+        d.classList.toggle('active', s === n);
+        d.classList.toggle('completed', s < n);
+      });
+      currentStep = n;
+    }
+
+    function setBerth(v) { document.getElementById('berth').value = v; }
+    function setPref(v) { document.getElementById('preferred').value = v; }
+
+
+    // ─── SEARCH SYNC ─────────────────────────────────────────
+    function syncSearch(v) {
+      const h = document.getElementById('searchTrain');
+      const b = document.getElementById('searchTrainBrowse');
+      if (document.activeElement !== h) h.value = v;
+      if (document.activeElement !== b) b.value = v;
+    }
+    document.getElementById('searchTrain').addEventListener('input', function () { syncSearch(this.value); });
+
+    function doSearch() {
+      const v = document.getElementById('searchTrainBrowse').value.trim();
+      document.getElementById('searchTrain').value = v;
+      if (window.searchTrain) window.searchTrain();
+    }
+
+
+    // ─── BERTH FILTER ────────────────────────────────────────
+    function filterBerth(btn, berth) {
+      document.querySelectorAll('#berthFilters .pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const cards = document.querySelectorAll('#requestsList .card');
+      let shown = 0;
+      cards.forEach(c => {
+        const vis = !berth || c.innerText.toLowerCase().includes(berth);
+        c.style.display = vis ? '' : 'none';
+        if (vis) shown++;
+      });
+      const rc = document.getElementById('resultsCount');
+      if (rc && cards.length) rc.textContent = shown + ' request' + (shown !== 1 ? 's' : '') + ' found';
+    }
+
+    new MutationObserver(() => {
+      const cards = document.querySelectorAll('#requestsList .card');
+      const rc = document.getElementById('resultsCount');
+      if (rc) rc.textContent = cards.length ? cards.length + ' request' + (cards.length !== 1 ? 's' : '') + ' found' : '';
+    }).observe(document.getElementById('requestsList'), { childList: true });
+
+
+    // ─── MOBILE MENU ─────────────────────────────────────────
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // ─── FILE INPUT ──────────────────────────────────────────
+    document.getElementById('photo').addEventListener('change', function () {
+      document.getElementById('fileNameDisplay').textContent = this.files[0]?.name || 'No file chosen';
+    });
+
+    // ─── NAVBAR SCROLL SHADOW ────────────────────────────────
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+    });
+  </script>
+
+</body>
+
+</html>

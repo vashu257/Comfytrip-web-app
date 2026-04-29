@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>ComfyTrip Seat Exchange</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- BACKGROUND CONTAINER -->
+  <div class="your-container">
+
+    <!-- CENTERED CONTENT -->
+    <div class="your-content">
+
+      <h1 class="title">ComfyTrip Seat Exchange</h1>
+
+      <!-- LOGIN -->
+      <button id="loginBtn">Login with Google</button>
+      <button id="logoutBtn" style="display:none;">Logout</button>
+
+      <h2 id="welcome"></h2>
+
+      <!-- FORM -->
+      <form id="requestForm" class="card" style="display:none;">
+        <h3>Create Seat Exchange Request</h3>
+
+        <input id="trainNo" placeholder="Train Number" required />
+        <input id="pnr" placeholder="PNR (10 digits)" pattern="\d{10}" maxlength="10"
+          title="PNR must be exactly 10 digits" required />
+        <input id="seat" placeholder="Seat Number" required />
+        <input id="berth" placeholder="Current Berth Type" required />
+        <input id="from" placeholder="From Station" required />
+        <input id="to" placeholder="To Station" required />
+        <input id="preferred" placeholder="Preferred Berth" required />
+
+        <input type="file" id="photo" accept="image/*" />
+
+        <button type="submit">Post Request</button>
+      </form>
+
+      <p id="status"></p>
+
+      <!-- SEARCH -->
+      <input id="searchTrain" placeholder="Enter Train Number to View Requests" />
+      <button onclick="searchTrain()">Search</button>
+
+      <!-- REQUEST LIST -->
+      <div class="card requests-box">
+        <h3>Available Requests</h3>
+        <div id="requestsList"></div>
+      </div>
+
+      <!-- CHAT LIST -->
+      <div id="chatListBox" class="card chat-box" style="display:none;">
+        <h3>Chats</h3>
+        <div id="chatList"></div>
+      </div>
+
+      <!-- SINGLE CHAT VIEW -->
+      <div id="chatBox" class="card chat-box" style="display:none;">
+        <h3 id="chatTitle">Chat</h3>
+
+        <div id="chatMessages" class="chat-messages"></div>
+
+        <div class="chat-input-area">
+          <input id="messageInput" placeholder="Type message..." />
+          <button onclick="sendMessage()">Send</button>
+        </div>
+
+        <button onclick="closeChat()" class="close-btn">Back</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="app.js"></script>
+
+</body>
+
+</html>
